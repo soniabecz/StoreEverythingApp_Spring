@@ -46,7 +46,7 @@ public class InformationController {
     }
 
     @PostMapping("/manage/add")
-    public String managePost(@Valid @ModelAttribute("newItem") Information newInfo, BindingResult result, Model model) {
+    public String managePost(@Valid @ModelAttribute("newInfo") Information newInfo, BindingResult result, Model model) {
         System.out.println(result.hasErrors());
         if (result.hasErrors()) {
             result.getAllErrors().forEach(el -> System.out.println(el));

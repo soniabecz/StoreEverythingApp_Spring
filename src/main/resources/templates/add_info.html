@@ -10,14 +10,14 @@
     <span th:insert="~{menu :: menu}"></span>
     <h1>Add new info</h1>
     <form action="#" th:action="@{/infos/manage/add}" th:object="${newInfo}" method="post">
-        <p>Title: <input type="text" th:field="*{title}"/></p>
-        <p>Content: <input type="text" th:field="*{content}"/></p>
+        <p>Title: <input type="text" th:field="*{title}"/><span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</span></p>
+        <p>Content: <input type="text" th:field="*{content}"/><span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name Error</span></p>
         <p>Link: <input type="text" th:field="*{link}"/></p>
         <span>
       <select th:field="*{category}">
         <option value="">Select category</option>
         <option th:each="option : ${categories}" th:value="${option.name}" th:text="${option.name}"></option>
-      </select>
+      </select><span th:if="${#fields.hasErrors('*')}" th:errors="*{category.name}">Name Error</span>
     </span>
         </br>
         </br>
