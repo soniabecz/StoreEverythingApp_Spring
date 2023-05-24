@@ -10,7 +10,7 @@
     <span th:insert="~{menu :: menu}"></span>
     <h1>Add new info</h1>
     <form action="#" th:action="@{/infos/manage/add/category}" th:object="${newCategory}" method="post">
-        <p>Name: <input type="text" th:field="*{name}"/></p>
+        <p>Name: <input type="text" th:field="*{name}"/><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span></p>
         </br>
         </br>
         <input type="submit" value="Add"/>
