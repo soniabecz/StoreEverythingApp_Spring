@@ -42,6 +42,7 @@ public class InformationRepository {
         infos.get(id).setTitle(newInfo.getTitle());
         infos.get(id).setContent(newInfo.getContent());
         infos.get(id).setLink(newInfo.getLink());
+        infos.get(id).setDate(newInfo.getDate());
         infos.get(id).setCategory(newInfo.getCategory());
     }
 

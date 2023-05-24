@@ -13,6 +13,7 @@
         <p>Title: <input type="text" th:field="*{title}"/><span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</span></p>
         <p>Content: <input type="text" th:field="*{content}"/><span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name Error</span></p>
         <p>Link: <input type="text" th:field="*{link}"/></p>
+        <p>Date: <input type="date" th:field="*{date}"/><span th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Name Error</span></p>
         <span>
       <select th:field="*{category}">
         <option value="">Select category</option>
