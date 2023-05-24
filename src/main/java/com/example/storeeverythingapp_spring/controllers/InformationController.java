@@ -39,14 +39,14 @@ public class InformationController {
     }
 
     @GetMapping("/manage/add")
-    public String manage(Model model) {
+    public String manageAdd(Model model) {
         model.addAttribute("categories", informationRepository.getCategories());
         model.addAttribute("newInfo", new Information());
         return "add_info";
     }
 
     @PostMapping("/manage/add")
-    public String managePost(@Valid @ModelAttribute("newInfo") Information newInfo, BindingResult result, Model model) {
+    public String manageAddPost(@Valid @ModelAttribute("newInfo") Information newInfo, BindingResult result, Model model) {
         System.out.println(result.hasErrors());
         if (result.hasErrors()) {
             result.getAllErrors().forEach(el -> System.out.println(el));
@@ -73,4 +73,30 @@ public class InformationController {
         informationRepository.addCategory(newCategory);
         return "redirect:/infos/";
     }
+
+    @GetMapping("/manage/delete/{id}")
+    public String deleteInfo(@PathVariable("id") int id) {
+        informationRepository.removeInfo(id);
+        return "redirect:/infos/";
+    }
+
+    @GetMapping("/manage/edit/{id}")
+    public String manageEdit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("categories", informationRepository.getCategories());
+        model.addAttribute("newInfo", informationRepository.getInfo(id));
+        return "edit_info";
+    }
+
+    @PostMapping("/manage/edit/{id}")
+    public String manageEditPost(@PathVariable("id") int id, @Valid @ModelAttribute("newInfo") Information newInfo, BindingResult result, Model model) {
+        System.out.println(result.hasErrors());
+        if (result.hasErrors()) {
+            result.getAllErrors().forEach(el -> System.out.println(el));
+            model.addAttribute("categories", informationRepository.getCategories());
+            return "edit_info";
+        }
+        informationRepository.editInfo(id, newInfo);
+        return "redirect:/infos/";
+    }
+
 }

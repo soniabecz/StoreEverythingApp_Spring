@@ -1,6 +1,6 @@
 package com.example.storeeverythingapp_spring.data;
 
-import com.example.storeeverythingapp_spring.validator.category.CategoryValidation;
+import com.example.storeeverythingapp_spring.validators.category.CategoryValidation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
