@@ -20,7 +20,7 @@
     <tr>
         <th>Title</th>
         <th>Content</th>
-        <th>Date Added</th>
+        <th>Date</th>
         <th>Category</th>
         <th>Link</th>
         <th>Details</th>
@@ -29,7 +29,7 @@
     <tr th:each="info,state:${infos}">
         <td th:text="${info.title}"></td>
         <td th:text="${info.content}"></td>
-        <td th:text="${info.date}"></td>
+        <td th:text="${#dates.format(info.date, 'dd-MM-yyyy')}"></td>
         <td th:text="${info.category.name}"></td>
         <td><a th:href="${info.link}">Link</a></td>
         <td><a th:href="@{'/infos/' + ${state.index}}">Details</a></td>
