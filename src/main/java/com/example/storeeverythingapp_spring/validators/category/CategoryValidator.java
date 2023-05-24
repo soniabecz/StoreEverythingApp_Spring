@@ -1,4 +1,4 @@
-package com.example.storeeverythingapp_spring.validator.category;
+package com.example.storeeverythingapp_spring.validators.category;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

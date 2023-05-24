@@ -18,12 +18,13 @@
 
 <table>
     <tr>
-        <th>Tytuł</th>
-        <th>Treść</th>
-        <th>Data Dodania</th>
-        <th>Kategoria</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Date Added</th>
+        <th>Category</th>
         <th>Link</th>
-        <th>Szczegóły</th>
+        <th>Details</th>
+        <th>Actions</th>
     </tr>
     <tr th:each="info,state:${infos}">
         <td th:text="${info.title}"></td>
@@ -32,6 +33,10 @@
         <td th:text="${info.category.name}"></td>
         <td><a th:href="${info.link}">Link</a></td>
         <td><a th:href="@{'/infos/' + ${state.index}}">Details</a></td>
+        <td>
+            <a th:href="@{'/infos/manage/delete/' + ${state.index}}">Delete</a>
+            <a th:href="@{'/infos/manage/edit/' + ${state.index}}">Edit</a>
+        </td>
     </tr>
 </table>
 
