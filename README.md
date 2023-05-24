@@ -9,9 +9,9 @@ swoim koncie ciekawych informacji, udostępniania ich
 innym oraz wygodnego przeglądania i przeszukiwania w
 dogodnym czasie.
 ## Elementy techniczne
-- [ ] Kontrolery
+- [x] Kontrolery
 - [ ] Baza danych (co najmniej 2 tabele z relacją)
-- [ ] Widoki: formularze z walidacją (3 różne elementy), 5 różnych znaczników Thymeleafa
+- [x] Widoki: formularze z walidacją (3 różne elementy), 5 różnych znaczników Thymeleafa
 - [ ] Sesja
 - [ ] Ciasteczka
 - [ ] Usługa REST (do uwierzytelniania użytkowników)
@@ -29,7 +29,7 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [x] dodanie/edycja/usunięcie przez siebie zebranych informacji
 - [x] walidacja formularza
 - [x] edycja na danych bieżących
-- [ ] dodanie nowej kategorii
+- [x] dodanie nowej kategorii
 - [ ] wyświetlenie udostępnionych przez innych informacji
 - [ ] udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
 - [ ] wyświetlanie “swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
