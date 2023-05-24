@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add New Info</title>
 </head>
 <body>
+
+<div class="container">
+    <span th:insert="~{menu :: menu}"></span>
+    <h1>Add new info</h1>
+    <form action="#" th:action="@{/infos/manage/add}" th:object="${newInfo}" method="post">
+        <p>Title: <input type="text" th:field="*{title}"/></p>
+        <p>Content: <input type="text" th:field="*{content}"/></p>
+        <p>Link: <input type="text" th:field="*{link}"/></p>
+        <span>
+      <select th:field="*{category}">
+        <option value="">Select category</option>
+        <option th:each="option : ${categories}" th:value="${option.name}" th:text="${option.name}"></option>
+      </select>
+    </span>
+        </br>
+        </br>
+        <input type="submit" value="Add"/>
+    </form>
+</div>
 
 </body>
 </html>

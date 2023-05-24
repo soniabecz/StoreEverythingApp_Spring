@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Category</title>
+</head>
+<body>
+
+<div class="container">
+    <span th:insert="~{menu :: menu}"></span>
+    <h1>Add new info</h1>
+    <form action="#" th:action="@{/infos/manage/add/category}" th:object="${newCategory}" method="post">
+        <p>Name: <input type="text" th:field="*{name}"/></p>
+        </br>
+        </br>
+        <input type="submit" value="Add"/>
+    </form>
+</div>
+
+</body>
+</html>

@@ -6,5 +6,34 @@
 </head>
 <body>
 
+<span th:insert="~{menu :: menu}"></span>
+</br>
+<form th:action="@{/infos/category}" method="get">
+    <select th:name="category">
+        <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
+    </select>
+    <input type="submit" value="Select"/>
+</form>
+<h1 th:text="|Infos Saved:|">message</h1>
+
+<table>
+    <tr>
+        <th>Tytuł</th>
+        <th>Treść</th>
+        <th>Data Dodania</th>
+        <th>Kategoria</th>
+        <th>Link</th>
+        <th>Szczegóły</th>
+    </tr>
+    <tr th:each="info,state:${infos}">
+        <td th:text="${info.title}"></td>
+        <td th:text="${info.content}"></td>
+        <td th:text="${info.date}"></td>
+        <td th:text="${info.category.name}"></td>
+        <td><a th:href="${info.link}">Link</a></td>
+        <td><a th:href="@{'/infos/' + ${state.index}}">Details</a></td>
+    </tr>
+</table>
+
 </body>
 </html>

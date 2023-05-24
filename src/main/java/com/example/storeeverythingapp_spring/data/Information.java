@@ -13,6 +13,8 @@ public class Information {
     private String date;
     private Category category;
 
+    private String link;
+
     private SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
     public Information(String title, String content, Category category) {
@@ -20,6 +22,14 @@ public class Information {
         this.content = content;
         this.date = formatter.format(new Date());
         this.category = category;
+    }
+
+    public Information(String title, String content, Category category, String link) {
+        this.title = title;
+        this.content = content;
+        this.date = formatter.format(new Date());
+        this.category = category;
+        this.link = link;
     }
 
     public Information() {
