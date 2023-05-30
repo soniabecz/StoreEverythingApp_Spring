@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -18,10 +19,22 @@
 
 <table>
     <tr>
-        <th>Title</th>
+        <th>Title
+            </br>
+            <a th:href="@{'/infos/sort/title/asc'}"><i class="fa fa-arrow-up"></i></a>
+            <a th:href="@{'/infos/sort/title/dsc'}"><i class="fa fa-arrow-down"></i></a>
+        </th>
         <th>Content</th>
-        <th>Date</th>
-        <th>Category</th>
+        <th>Date
+            </br>
+            <a th:href="@{'/infos/sort/date/asc'}"><i class="fa fa-arrow-up"></i></a>
+            <a th:href="@{'/infos/sort/date/dsc'}"><i class="fa fa-arrow-down"></i></a>
+        </th>
+        <th>Category
+            </br>
+            <a th:href="@{'/infos/sort/category/asc'}"><i class="fa fa-arrow-up"></i></a>
+            <a th:href="@{'/infos/sort/category/dsc'}"><i class="fa fa-arrow-down"></i></a>
+        </th>
         <th>Link</th>
         <th>Details</th>
         <th>Actions</th>
