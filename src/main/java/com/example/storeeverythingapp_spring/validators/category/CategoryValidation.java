@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Documented
 @Constraint(validatedBy = CategoryValidator.class)
 public @interface CategoryValidation {
-    public String message() default "Name should only consist of lowercase letters";
+    public String message() default "Category already exists";
     public Class<?>[] groups() default {};
     public Class<? extends Payload>[] payload() default {};
 }
