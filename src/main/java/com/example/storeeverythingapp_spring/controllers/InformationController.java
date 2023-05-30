@@ -3,11 +3,13 @@ package com.example.storeeverythingapp_spring.controllers;
 import com.example.storeeverythingapp_spring.data.Category;
 import com.example.storeeverythingapp_spring.data.Information;
 import com.example.storeeverythingapp_spring.repositories.InformationRepository;
+import com.example.storeeverythingapp_spring.validators.category.CategoryValidation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -64,7 +66,8 @@ public class InformationController {
     }
 
     @PostMapping("/manage/add/category")
-    public String manageCatPost(@Valid @ModelAttribute("newCategory") Category newCategory, BindingResult result, Model model) {
+
+    public String manageCatPost(@Validated(CategoryValidation.class) @ModelAttribute("newCategory") Category newCategory, BindingResult result, Model model) {
         System.out.println(result.hasErrors());
         if (result.hasErrors()) {
             result.getAllErrors().forEach(el -> System.out.println(el));

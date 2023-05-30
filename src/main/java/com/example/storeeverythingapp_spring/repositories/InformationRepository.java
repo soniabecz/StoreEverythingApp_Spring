@@ -2,6 +2,7 @@ package com.example.storeeverythingapp_spring.repositories;
 
 import com.example.storeeverythingapp_spring.data.Category;
 import com.example.storeeverythingapp_spring.data.Information;
+import com.example.storeeverythingapp_spring.validators.category.CategoryValidation;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
 

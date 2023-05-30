@@ -16,6 +16,6 @@ public class Category {
     @Size(min = 3, max = 20, message = "Name has to consist of more than 3 and less than 20 characters")
     @Pattern(regexp = "[a-z]+", message = "Name should only consist of lowercase letters")
     @NotBlank(message = "Category has to be chosen")
-    @CategoryValidation
+    @CategoryValidation(groups = {CategoryValidation.class})
     private String name;
 }
