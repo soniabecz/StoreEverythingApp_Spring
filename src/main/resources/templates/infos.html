@@ -10,7 +10,8 @@
 <span th:insert="~{menu :: menu}"></span>
 </br>
 <form th:action="@{/infos/category}" method="get">
-    <select th:name="category">
+    <label th:for="|categories|">Choose category: </label>
+    <select th:id="|categories|" th:name="category">
         <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
     </select>
     <input type="submit" value="Select"/>
@@ -21,19 +22,19 @@
     <tr>
         <th>Title
             </br>
-            <a th:href="@{'/infos/sort/title/asc'}"><i class="fa fa-arrow-up"></i></a>
-            <a th:href="@{'/infos/sort/title/dsc'}"><i class="fa fa-arrow-down"></i></a>
+            <a th:href="@{'/infos/sort/title/asc'}" th:title="|Sort By Title ASC|"><i class="fa fa-arrow-up"></i></a>
+            <a th:href="@{'/infos/sort/title/dsc'}" th:title="|Sort By Title DSC|"><i class="fa fa-arrow-down"></i></a>
         </th>
         <th>Content</th>
         <th>Date
             </br>
-            <a th:href="@{'/infos/sort/date/asc'}"><i class="fa fa-arrow-up"></i></a>
-            <a th:href="@{'/infos/sort/date/dsc'}"><i class="fa fa-arrow-down"></i></a>
+            <a th:href="@{'/infos/sort/date/asc'}" th:title="|Sort By Date ASC|"><i class="fa fa-arrow-up"></i></a>
+            <a th:href="@{'/infos/sort/date/dsc'}" th:title="|Sort By Date DSC|"><i class="fa fa-arrow-down"></i></a>
         </th>
         <th>Category
             </br>
-            <a th:href="@{'/infos/sort/category/asc'}"><i class="fa fa-arrow-up"></i></a>
-            <a th:href="@{'/infos/sort/category/dsc'}"><i class="fa fa-arrow-down"></i></a>
+            <a th:href="@{'/infos/sort/category/asc'}" th:title="|Sort By Category ASC|"><i class="fa fa-arrow-up"></i></a>
+            <a th:href="@{'/infos/sort/category/dsc'}" th:title="|Sort By Category DSC|"><i class="fa fa-arrow-down"></i></a>
         </th>
         <th>Link</th>
         <th>Details</th>
@@ -44,8 +45,8 @@
         <td th:text="${info.content}"></td>
         <td th:text="${#dates.format(info.date, 'dd-MM-yyyy')}"></td>
         <td th:text="${info.category.name}"></td>
-        <td><a th:href="${info.link}">Link</a></td>
-        <td><a th:href="@{'/infos/' + ${state.index}}">Details</a></td>
+        <td><a th:href="${info.link}" th:text="|Link associated with | + ${info.title}"></a></td>
+        <td><a th:href="@{'/infos/' + ${state.index}}" th:text="|Details of | + ${info.title}"></a></td>
         <td>
             <a th:href="@{'/infos/manage/delete/' + ${state.index}}">Delete</a>
             <a th:href="@{'/infos/manage/edit/' + ${state.index}}">Edit</a>
