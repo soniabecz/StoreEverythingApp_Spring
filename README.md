@@ -32,7 +32,7 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [x] dodanie nowej kategorii
 - [ ] wyświetlenie udostępnionych przez innych informacji
 - [ ] udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
-- [ ] wyświetlanie “swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
+- [x] wyświetlanie “swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
 - [ ] zapamiętanie kierunków i kryteriów sortowania
 - [ ] filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
 - [ ] logowanie
