@@ -7,6 +7,8 @@ import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Repository
@@ -31,6 +33,78 @@ public class InformationRepository {
             }
         }
         return filteredInfos;
+    }
+
+    public List<Information> sortByNameASC() {
+        if (infos.size() > 0) {
+            Collections.sort(infos, new Comparator<Information>() {
+                @Override
+                public int compare(final Information info1, final Information info2) {
+                    return info1.getTitle().compareTo(info2.getTitle());
+                }
+            });
+        }
+        return infos;
+    }
+
+    public List<Information> sortByNameDSC() {
+        if (infos.size() > 0) {
+            Collections.sort(infos, new Comparator<Information>() {
+                @Override
+                public int compare(final Information info1, final Information info2) {
+                    return info2.getTitle().compareTo(info1.getTitle());
+                }
+            });
+        }
+        return infos;
+    }
+
+    public List<Information> sortByDateASC() {
+        if (infos.size() > 0) {
+            Collections.sort(infos, new Comparator<Information>() {
+                @Override
+                public int compare(final Information info1, final Information info2) {
+                    return info1.getDate().compareTo(info2.getDate());
+                }
+            });
+        }
+        return infos;
+    }
+
+    public List<Information> sortByDateDSC() {
+        if (infos.size() > 0) {
+            Collections.sort(infos, new Comparator<Information>() {
+                @Override
+                public int compare(final Information info1, final Information info2) {
+                    return info2.getDate().compareTo(info1.getDate());
+                }
+            });
+        }
+        return infos;
+    }
+
+    public List<Information> sortByCategoryASC() {
+        if (infos.size() > 0) {
+            Collections.sort(infos, new Comparator<Information>() {
+                @Override
+                public int compare(final Information info1, final Information info2) {
+                    return info1.getCategory().getName().compareTo(info2.getCategory().getName());
+                }
+            });
+        }
+        return infos;
+    }
+
+    public List<Information> sortByCategoryDSC() {
+        if (infos.size() > 0) {
+            Collections.sort(infos, new Comparator<Information>() {
+                @Override
+                public int compare(final Information info1, final Information info2) {
+                    return info2.getCategory().getName().compareTo(info1.getCategory().getName());
+                }
+            });
+        }
+        return infos;
     }
 
     public void addInfo(Information newInfo) {

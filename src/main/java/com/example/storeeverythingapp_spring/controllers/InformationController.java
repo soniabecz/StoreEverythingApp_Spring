@@ -40,6 +40,48 @@ public class InformationController {
         return "infos";
     }
 
+    @GetMapping("/sort/title/asc")
+    public String sortItemsByTitleASC(Model model) {
+        model.addAttribute("infos", informationRepository.sortByNameASC());
+        model.addAttribute("categories", informationRepository.getCategories());
+        return "redirect:/infos/";
+    }
+
+    @GetMapping("/sort/title/dsc")
+    public String sortItemsByTitleDSC(Model model) {
+        model.addAttribute("infos", informationRepository.sortByNameDSC());
+        model.addAttribute("categories", informationRepository.getCategories());
+        return "redirect:/infos/";
+    }
+
+    @GetMapping("/sort/date/asc")
+    public String sortItemsByDateASC(Model model) {
+        model.addAttribute("infos", informationRepository.sortByDateASC());
+        model.addAttribute("categories", informationRepository.getCategories());
+        return "redirect:/infos/";
+    }
+
+    @GetMapping("/sort/date/dsc")
+    public String sortItemsByDateDSC(Model model) {
+        model.addAttribute("infos", informationRepository.sortByDateDSC());
+        model.addAttribute("categories", informationRepository.getCategories());
+        return "redirect:/infos/";
+    }
+
+    @GetMapping("/sort/category/asc")
+    public String sortItemsByCategoryASC(Model model) {
+        model.addAttribute("infos", informationRepository.sortByCategoryASC());
+        model.addAttribute("categories", informationRepository.getCategories());
+        return "redirect:/infos/";
+    }
+
+    @GetMapping("/sort/category/dsc")
+    public String sortItemsByCategoryDSC(Model model) {
+        model.addAttribute("infos", informationRepository.sortByCategoryDSC());
+        model.addAttribute("categories", informationRepository.getCategories());
+        return "redirect:/infos/";
+    }
+
     @GetMapping("/manage/add")
     public String manageAdd(Model model) {
         model.addAttribute("categories", informationRepository.getCategories());
