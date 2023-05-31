@@ -27,6 +27,13 @@ public class InformationController {
         return "infos";
     }
 
+    @GetMapping("/all")
+    public String getAllInfos(Model model) {
+        model.addAttribute("infos", informationRepository.getAllInfos());
+        model.addAttribute("categories", informationRepository.getCategories());
+        return "infos";
+    }
+
     @GetMapping("/{idx}")
     public String getInfo(@PathVariable("idx") int id, Model model) {
         model.addAttribute("info", informationRepository.getInfo(id));

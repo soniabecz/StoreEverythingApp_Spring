@@ -12,6 +12,7 @@ import java.util.*;
 @Getter
 public class InformationRepository {
     List<Information> infos = new ArrayList<>();
+    List<Information> allInfos = new ArrayList<>();
     List<Category> categories = new ArrayList<>();
     HashMap infosPopularity = new HashMap<>();
 
@@ -23,8 +24,14 @@ public class InformationRepository {
         return infos.get(id);
     }
 
+    public List<Information> getAllInfos() {
+        infos = allInfos;
+        return infos;
+    }
+
     public List<Information> filterInfos(String choice) {
         List<Information> filteredInfos = new ArrayList<>();
+        allInfos = infos;
 
         if (Objects.equals(choice, "category")) {
             Iterator i = infosPopularity.keySet().iterator();
@@ -55,6 +62,7 @@ public class InformationRepository {
             });
         }
 
+        infos = filteredInfos;
         return filteredInfos;
 
     }
