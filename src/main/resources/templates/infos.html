@@ -9,10 +9,11 @@
 
 <span th:insert="~{menu :: menu}"></span>
 </br>
-<form th:action="@{/infos/category}" method="get">
-    <label th:for="|categories|">Choose category: </label>
-    <select th:id="|categories|" th:name="category">
-        <option th:each="cat : ${categories}" th:value="${cat.name}" th:text="${cat.name}"></option>
+<form th:action="@{/infos/filter}" method="get">
+    <label th:for="|categories|">Filter: </label>
+    <select th:id="|categories|" th:name="choice">
+        <option th:value="|category|" th:text="|Show the most popular categories|"></option>
+        <option th:value="|date|" th:text="|Show only future dates|"></option>
     </select>
     <input type="submit" value="Select"/>
 </form>

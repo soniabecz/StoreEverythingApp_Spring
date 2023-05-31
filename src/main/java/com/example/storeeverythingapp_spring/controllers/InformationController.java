@@ -33,9 +33,9 @@ public class InformationController {
         return "info";
     }
 
-    @GetMapping("/category")
-    public String getItemsFromCategory(@RequestParam("category") String category, Model model) {
-        model.addAttribute("infos", informationRepository.getInfosFromCategory(category));
+    @GetMapping("/filter")
+    public String filterItems(@RequestParam("choice") String choice, Model model) {
+        model.addAttribute("infos", informationRepository.filterInfos(choice));
         model.addAttribute("categories", informationRepository.getCategories());
         return "infos";
     }

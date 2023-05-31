@@ -26,7 +26,7 @@ public class Information {
     @Size(min = 5, max = 500, message = "Name has to consist of more than 5 and less than 500 characters")
     private String content;
 
-    @FutureOrPresent(message = "You can't choose past date")
+    //@FutureOrPresent(message = "You can't choose past date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Date can't be null")
     private Date date;
