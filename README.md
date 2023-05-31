@@ -12,8 +12,8 @@ dogodnym czasie.
 - [x] Kontrolery
 - [ ] Baza danych (co najmniej 2 tabele z relacją)
 - [x] Widoki: formularze z walidacją (3 różne elementy), 5 różnych znaczników Thymeleafa
-- [ ] Sesja
-- [ ] Ciasteczka
+- [x] Sesja
+- [x] Ciasteczka
 - [ ] Usługa REST (do uwierzytelniania użytkowników)
 - [ ] Klient REST
 - [ ] Spring Security (z bazą danych)
@@ -33,8 +33,8 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [ ] wyświetlenie udostępnionych przez innych informacji
 - [ ] udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
 - [x] wyświetlanie “swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
-- [ ] zapamiętanie kierunków i kryteriów sortowania
-- [ ] filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
+- [x] zapamiętanie kierunków i kryteriów sortowania
+- [x] filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
 - [ ] logowanie
 - [ ] zapis do bazy danych dopiero przy wylogowaniu/wygaśnięciu sesji
 ### Użytkownik niezalogowany
