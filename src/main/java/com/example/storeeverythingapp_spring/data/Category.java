@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
-
     @Size(min = 3, max = 20, message = "Name has to consist of more than 3 and less than 20 characters", groups = {CategoryValidation.class})
     @Pattern(regexp = "[a-z]+", message = "Name should only consist of lowercase letters", groups = {CategoryValidation.class})
     @NotBlank(message = "Category has to be chosen")
