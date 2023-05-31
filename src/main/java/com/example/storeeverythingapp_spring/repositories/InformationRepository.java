@@ -4,6 +4,9 @@ import com.example.storeeverythingapp_spring.data.Category;
 import com.example.storeeverythingapp_spring.data.Information;
 import com.example.storeeverythingapp_spring.validators.category.CategoryValidation;
 import lombok.Getter;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -16,6 +19,8 @@ public class InformationRepository {
     List<Category> categories = new ArrayList<>();
     HashMap infosPopularity = new HashMap<>();
 
+    int counter = 0;
+
     public InformationRepository() {
 
     }
@@ -26,12 +31,17 @@ public class InformationRepository {
 
     public List<Information> getAllInfos() {
         infos = allInfos;
+        counter = 0;
         return infos;
     }
 
     public List<Information> filterInfos(String choice) {
+        if(counter == 0) {
+            allInfos = infos;
+            counter++;
+        }
+
         List<Information> filteredInfos = new ArrayList<>();
-        allInfos = infos;
 
         if (Objects.equals(choice, "category")) {
             Iterator i = infosPopularity.keySet().iterator();
@@ -76,6 +86,7 @@ public class InformationRepository {
                 }
             });
         }
+
         return infos;
     }
 
@@ -88,6 +99,7 @@ public class InformationRepository {
                 }
             });
         }
+
         return infos;
     }
 
@@ -100,6 +112,7 @@ public class InformationRepository {
                 }
             });
         }
+
         return infos;
     }
 
@@ -112,6 +125,7 @@ public class InformationRepository {
                 }
             });
         }
+
         return infos;
     }
 
@@ -124,6 +138,7 @@ public class InformationRepository {
                 }
             });
         }
+
         return infos;
     }
 
@@ -136,6 +151,7 @@ public class InformationRepository {
                 }
             });
         }
+
         return infos;
     }
 
