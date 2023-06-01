@@ -62,31 +62,6 @@ public class InformationController {
 
         model.addAttribute("infos", informationRepository.getAllInfos());
 
-        /*if(sortType.equals("nameASC")) {
-            informationRepository.getAllInfos();
-            model.addAttribute("infos", informationRepository.getAllInfos());
-            System.out.println("nameasc");
-        }
-        if(sortType.equals("nameDSC")) {
-            model.addAttribute("infos", informationRepository.sortByNameDSC());
-            System.out.println("namedsc");
-        }
-        if(sortType.equals("dateASC")) {
-            model.addAttribute("infos", informationRepository.sortByDateASC());
-        }
-        if(sortType.equals("dateDSC")) {
-            model.addAttribute("infos", informationRepository.sortByDateDSC());
-        }
-        if(sortType.equals("categoryASC")) {
-            model.addAttribute("infos", informationRepository.sortByCategoryASC());
-        }
-        if(sortType.equals("categoryDSC")) {
-            model.addAttribute("infos", informationRepository.sortByCategoryDSC());
-        }
-        else {
-            model.addAttribute("infos", informationRepository.getInfos());
-        }*/
-
         model.addAttribute("categories", informationRepository.getCategories());
         return "redirect:/infos/";
     }
