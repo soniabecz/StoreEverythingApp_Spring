@@ -25,7 +25,7 @@ public class UsersAuthDBService implements UserDetailsService {
         if (user == null)
             throw new UsernameNotFoundException("User " + username + " not found !");
         else {
-            UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(),
+            return new org.springframework.security.core.userdetails.User(user.getUsername(),
                     user.getPassword(),
                     authorities.findByUsername(username)
                             .stream()
@@ -34,7 +34,6 @@ public class UsersAuthDBService implements UserDetailsService {
                                 return new SimpleGrantedAuthority(role.getAuthority());
                             })
                             .collect(Collectors.toSet()));
-            return userDetails;
         }
     }
 }

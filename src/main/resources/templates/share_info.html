@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Share Info</title>
+</head>
+<body>
+<div class="container">
+  <span th:insert="~{menu :: menu}"></span>
+  <h1>Add new info</h1>
+  <form action="#" th:action="@{'/infos/manage/share/' + ${id}}" th:object="${newInfo}" method="post">
+    <p>Username of a user to share this information to:<input type="text" th:id="|username|" th:name="username"/></p>
+    <p><input hidden="hidden" type="number" th:value="${newInfo.databaseId}" th:field="*{databaseId}"/></p>
+    <p><input hidden="hidden" type="text" th:value="${newInfo.title}" th:field="*{title}"/></p>
+    <p><input hidden="hidden" type="text" th:value="${newInfo.content}" th:field="*{content}"/></p>
+    <p><input hidden="hidden" type="text" th:value="${newInfo.link}" th:field="*{link}"/></p>
+    <p><input hidden="hidden" type="date" th:value="${newInfo.date}" th:field="*{date}"/></p>
+    <span>
+      <select hidden="hidden" th:field="*{category}"></select><span th:if="${#fields.hasErrors('*')}" th:errors="*{category.name}">Name Error</span>
+    </span>
+    </br>
+    </br>
+    <input type="submit" value="Share"/>
+  </form>
+</div>
+</body>
+</html>

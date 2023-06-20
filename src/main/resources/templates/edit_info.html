@@ -10,6 +10,7 @@
     <span th:insert="~{menu :: menu}"></span>
     <h1>Add new info</h1>
     <form action="#" th:action="@{'/infos/manage/edit/' + ${id}}" th:object="${newInfo}" method="post">
+        <p> <input hidden="hidden" type="number" th:value="${newInfo.databaseId}" th:field="*{databaseId}"/></p>
         <p>Title: <input type="text" th:value="${newInfo.title}" th:field="*{title}"/><span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</span></p>
         <p>Content: <input type="text" th:value="${newInfo.content}" th:field="*{content}"/><span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name Error</span></p>
         <p>Link: <input type="text" th:value="${newInfo.link}" th:field="*{link}"/></p>

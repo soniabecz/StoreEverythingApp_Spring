@@ -23,11 +23,6 @@ public class LoginController {
         return "login";
     }
 
-    /*@GetMapping("/logout")
-    public String logout() {
-        return "login";
-    }*/
-
     @GetMapping("/register")
     public String manageAdd(Model model) {
         model.addAttribute("newUser", new UserEntity());
@@ -38,7 +33,7 @@ public class LoginController {
     public String manageAddPost(@ModelAttribute("newUser") UserEntity user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            result.getAllErrors().forEach(el -> System.out.println(el));
+            result.getAllErrors().forEach(System.out::println);
             return "register";
         }
 

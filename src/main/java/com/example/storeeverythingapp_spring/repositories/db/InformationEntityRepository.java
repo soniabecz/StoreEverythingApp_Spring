@@ -10,4 +10,5 @@ public interface InformationEntityRepository extends JpaRepository<InformationEn
 
     List<InformationEntity> findAllByUsername(String username);
 
+    List<InformationEntity> findAllBySharedTo(String username);
 }

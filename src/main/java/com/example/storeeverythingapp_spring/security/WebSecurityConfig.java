@@ -2,6 +2,7 @@ package com.example.storeeverythingapp_spring.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -24,21 +25,15 @@ public class WebSecurityConfig {
         int rounds = 12;
         return new BCryptPasswordEncoder(rounds);
     }
-    @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService customUserDetailsService) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider .setUserDetailsService(customUserDetailsService);
-        authProvider .setPasswordEncoder(passwordEncoder());
-        List<AuthenticationProvider> providers= List.of(authProvider);
-        return new ProviderManager(providers);
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/", "/error").permitAll()
                         .requestMatchers("/register").permitAll()
+                        .requestMatchers("/infos/shared").hasAnyAuthority("FULL_USER", "LIMITED_USER")
+                        .requestMatchers("/infos/manage/add").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -53,5 +48,16 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(UserDetailsService customUserDetailsService) {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider .setUserDetailsService(customUserDetailsService);
+        authProvider .setPasswordEncoder(passwordEncoder());
+        List<AuthenticationProvider> providers= List.of(authProvider);
+        return new ProviderManager(providers);
+    }
+
+
 
 }

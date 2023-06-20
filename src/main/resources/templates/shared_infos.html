@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<span th:insert="~{menu :: menu}"></span>
+</br>
+<form th:action="@{/infos/filter}" method="get">
+  <label th:for="|categories|">Filter: </label>
+  <select th:id="|categories|" th:name="choice">
+    <option th:value="|category|" th:text="|Show the most popular categories|"></option>
+    <option th:value="|date|" th:text="|Show only future dates|"></option>
+  </select>
+  <input type="submit" value="Select"/>
+</form>
+<h1 th:text="|Infos Saved:|">message</h1>
+
+<table>
+  <tr>
+    <th>Title
+      </br>
+      <a th:href="@{'/infos/sort/title/asc'}" th:title="|Sort By Title ASC|"><i class="fa fa-arrow-up"></i></a>
+      <a th:href="@{'/infos/sort/title/dsc'}" th:title="|Sort By Title DSC|"><i class="fa fa-arrow-down"></i></a>
+    </th>
+    <th>Content</th>
+    <th>Date
+      </br>
+      <a th:href="@{'/infos/sort/date/asc'}" th:title="|Sort By Date ASC|"><i class="fa fa-arrow-up"></i></a>
+      <a th:href="@{'/infos/sort/date/dsc'}" th:title="|Sort By Date DSC|"><i class="fa fa-arrow-down"></i></a>
+    </th>
+    <th>Category
+      </br>
+      <a th:href="@{'/infos/sort/category/asc'}" th:title="|Sort By Category ASC|"><i class="fa fa-arrow-up"></i></a>
+      <a th:href="@{'/infos/sort/category/dsc'}" th:title="|Sort By Category DSC|"><i class="fa fa-arrow-down"></i></a>
+    </th>
+    <th>Link</th>
+    <th>Details</th>
+    <th>Actions</th>
+  </tr>
+  <tr th:each="info,state:${infos}">
+    <td th:text="${info.title}"></td>
+    <td th:text="${info.content}"></td>
+    <td th:text="${#dates.format(info.date, 'dd-MM-yyyy')}"></td>
+    <td th:text="${info.categoryName.name}"></td>
+    <td><a th:href="${info.link}" th:text="|Link associated with | + ${info.title}"></a></td>
+    <td><a th:href="@{'/infos/' + ${state.index}}" th:text="|Details of | + ${info.title}"></a></td>
+    <td>
+      <a th:href="@{'/infos/manage/delete/' + ${state.index}}">Delete</a>
+      <a th:href="@{'/infos/manage/edit/' + ${state.index}}">Edit</a>
+      <a th:href="@{'/infos/manage/share/'+ ${state.index}}">Share</a>
+    </td>
+  </tr>
+</table>
+
+</br>
+</br>
+
+<form th:action="@{/logout}" method="post">
+  <input type="submit" value="Sign Out" />
+</form>
+
+</body>
+</html>

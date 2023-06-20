@@ -40,35 +40,27 @@ public class AppService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    List<InformationEntity> infos = new ArrayList<>();
+    List<InformationEntity> infos = new ArrayList<InformationEntity>();
 
-    List<InformationEntity> newInfos = new ArrayList<>();
-    List<InformationEntity> infosDB = new ArrayList<>();
+    List<InformationEntity> newInfos = new ArrayList<InformationEntity>();
+    List<InformationEntity> infosDB = new ArrayList<InformationEntity>();
     List<InformationEntity> allInfos = new ArrayList<InformationEntity>();
-    List<CategoryEntity> categories = new ArrayList<>();
+    List<CategoryEntity> categories = new ArrayList<CategoryEntity>();
+    List<CategoryEntity> newCategories = new ArrayList<CategoryEntity>();
+
     HashMap<String, Integer> infosPopularity = new HashMap<>();
 
+    int dbSize = 0;
 
-    int counter = 0;
 
+    public List<InformationEntity> getInfos() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
 
-    public Information getInfo(int id) {
-        Information information = new Information();
+        infos = informationEntityRepository.findAllByUsername(currentUserName);
 
-        String catName = infos.get(id).getCategoryName().getName();
-        System.out.println(catName);
+        dbSize = infos.size();
 
-        information.setTitle(infos.get(id).getTitle());
-        information.setContent(infos.get(id).getContent());
-        information.setDate(infos.get(id).getDate());
-        information.setLink(infos.get(id).getLink());
-        information.setCategory(new Category(catName));
-
-        return information;
-    }
-
-    public List<InformationEntity> getAllInfos() {
-        infos = informationEntityRepository.findAll();
         for (InformationEntity info : infos) {
             int count = Integer.parseInt(infosPopularity.get(info.getCategoryName().getName()).toString());
             infosPopularity.put(info.getCategoryName().getName(), Integer.valueOf(++count));
@@ -79,13 +71,44 @@ public class AppService {
             infos.addAll(newInfos);
         }
 
-        counter = 0;
         return infos;
     }
 
-    public List<InformationEntity> all() {
-        return informationEntityRepository.findAll();
+    public Information getInfo(int id) {
+        Information information = new Information();
+
+        String catName = infos.get(id).getCategoryName().getName();
+        System.out.println(catName);
+
+        System.out.println("id:" + infos.get(id).getId());
+
+        information.setDatabaseId(infos.get(id).getId());
+        information.setTitle(infos.get(id).getTitle());
+        information.setContent(infos.get(id).getContent());
+        information.setDate(infos.get(id).getDate());
+        information.setLink(infos.get(id).getLink());
+        information.setCategory(new Category(catName));
+
+        System.out.println(information);
+
+        return information;
     }
+
+    public List<InformationEntity> getAllInfos() {
+        getInfos();
+        return infos;
+    }
+
+    public List<InformationEntity> getSharedInfos() {
+        getInfos();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+
+        infos = informationEntityRepository.findAllBySharedTo(currentUserName);
+        return infos;
+    }
+
 
     public List<InformationEntity> filterInfos(String choice) {
 
@@ -126,6 +149,11 @@ public class AppService {
     }
 
     public List<InformationEntity> sortByNameASC() {
+
+        if (infos.size() == 0) {
+            getInfos();
+        }
+
         if (infos.size() > 0) {
             infos.sort(new Comparator<InformationEntity>() {
                 @Override
@@ -133,12 +161,18 @@ public class AppService {
                     return info1.getTitle().compareTo(info2.getTitle());
                 }
             });
+            System.out.println(infos);
         }
 
         return infos;
     }
 
     public List<InformationEntity> sortByNameDSC() {
+
+        if (infos.size() == 0) {
+            getInfos();
+        }
+
         if (infos.size() > 0) {
             infos.sort(new Comparator<InformationEntity>() {
                 @Override
@@ -152,6 +186,11 @@ public class AppService {
     }
 
     public List<InformationEntity> sortByDateASC() {
+
+        if (infos.size() == 0) {
+            getInfos();
+        }
+
         if (infos.size() > 0) {
             infos.sort(new Comparator<InformationEntity>() {
                 @Override
@@ -165,6 +204,11 @@ public class AppService {
     }
 
     public List<InformationEntity> sortByDateDSC() {
+
+        if (infos.size() == 0) {
+            getInfos();
+        }
+
         if (infos.size() > 0) {
             infos.sort(new Comparator<InformationEntity>() {
                 @Override
@@ -178,6 +222,11 @@ public class AppService {
     }
 
     public List<InformationEntity> sortByCategoryASC() {
+
+        if (infos.size() == 0) {
+            getInfos();
+        }
+
         if (infos.size() > 0) {
             infos.sort(new Comparator<InformationEntity>() {
                 @Override
@@ -191,6 +240,12 @@ public class AppService {
     }
 
     public List<InformationEntity> sortByCategoryDSC() {
+
+        if (infos.size() == 0) {
+            getInfos();
+        }
+
+
         if (infos.size() > 0) {
             infos.sort(new Comparator<InformationEntity>() {
                 @Override
@@ -226,18 +281,26 @@ public class AppService {
         infosPopularity = sortByValue(infosPopularity);
 
     }
-    public void removeInfo(int id) {
-        infos.remove(id);
+    public void removeInfo(int id, Information newInfo) {
+        if (informationEntityRepository.findById(newInfo.getDatabaseId()).isPresent()) {
+            informationEntityRepository.deleteById(newInfo.getDatabaseId());
+        } else {
+            System.out.println("to: " + infos.get(id));
+            newInfos.removeIf(info -> info.equals(infos.get(id)));
+            infos.remove(id);
+        }
+
     }
     public void editInfo(int id, Information newInfo) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        System.out.println(newInfo);
 
-            String catName = newInfo.getCategory().getName();
-        System.out.println(catName);
-            Optional<CategoryEntity> categoryEntity = categoryEntityRepository.findByNameIgnoreCase(catName);
-            InformationEntity information = informationEntityRepository.findById(id).get();
+        String catName = newInfo.getCategory().getName();
+        Optional<CategoryEntity> categoryEntity = categoryEntityRepository.findByNameIgnoreCase(catName);
+
+        if (informationEntityRepository.findById(newInfo.getDatabaseId()).isPresent()) {
+            InformationEntity information = informationEntityRepository.findById(newInfo.getDatabaseId()).get();
             information.setTitle(newInfo.getTitle());
             information.setContent(newInfo.getContent());
             information.setLink(newInfo.getLink());
@@ -246,12 +309,55 @@ public class AppService {
             information.setCategoryName(categoryEntity.get());
             informationEntityRepository.save(information);
             System.out.println(information);
+        } else {
 
+            for (InformationEntity info : newInfos) {
+                if (info.equals(infos.get(id))) {
+                    info.setTitle(newInfo.getTitle());
+                    info.setContent(newInfo.getContent());
+                    info.setLink(newInfo.getLink());
+                    info.setDate(new java.sql.Date(newInfo.getDate().getTime()));
+                    info.setCategoryName(categoryEntity.get());
+                }
+            }
+
+            infos.get(id).setTitle(newInfo.getTitle());
+            infos.get(id).setContent(newInfo.getContent());
+            infos.get(id).setLink(newInfo.getLink());
+            infos.get(id).setDate(new java.sql.Date(newInfo.getDate().getTime()));
+            infos.get(id).setCategoryName(categoryEntity.get());
+
+        }
+    }
+
+    public void shareInfo(int id, Information newInfo, String username) {
+        if (informationEntityRepository.findById(newInfo.getDatabaseId()).isPresent()) {
+            InformationEntity information = informationEntityRepository.findById(newInfo.getDatabaseId()).get();
+            information.setSharedTo(username);
+            informationEntityRepository.save(information);
+            System.out.println(information);
+        } else {
+
+            for (InformationEntity info : newInfos) {
+                if (info.equals(infos.get(id))) {
+                    info.setSharedTo(username);
+                }
+            }
+
+            infos.get(id).setSharedTo(username);
+
+        }
     }
 
     public List<CategoryEntity> getCategories() {
+
         if (categories.size() == 0) {
+
             categories = categoryEntityRepository.findAll();
+
+            if (newCategories.size() != 0) {
+                categories.addAll(newCategories);
+            }
 
             for (CategoryEntity cat : categories) {
                 infosPopularity.put(cat.getName(), 0);
@@ -265,6 +371,7 @@ public class AppService {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setName(newCat.getName());
         categories.add(categoryEntity);
+        newCategories.add(categoryEntity);
 
         infosPopularity.put(newCat.getName(), 0);
     }
@@ -291,7 +398,6 @@ public class AppService {
 
     public void addUser(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        System.out.println(user);
         userEntityRepository.save(user);
         AuthoritiesEntity authority = new AuthoritiesEntity();
         authority.setUsername(user.getUsername());

@@ -96,7 +96,7 @@ public class InformationRepository {
         if (infos.size() > 0) {
             Collections.sort(infos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final InformationEntity info1, final InformationEntity info2) {
+                public int compare(InformationEntity info1, InformationEntity info2) {
                     return info1.getTitle().compareTo(info2.getTitle());
                 }
             });
