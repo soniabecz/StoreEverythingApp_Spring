@@ -45,7 +45,7 @@
         <td th:text="${info.title}"></td>
         <td th:text="${info.content}"></td>
         <td th:text="${#dates.format(info.date, 'dd-MM-yyyy')}"></td>
-        <td th:text="${info.category.name}"></td>
+        <td th:text="${info.categoryName.name}"></td>
         <td><a th:href="${info.link}" th:text="|Link associated with | + ${info.title}"></a></td>
         <td><a th:href="@{'/infos/' + ${state.index}}" th:text="|Details of | + ${info.title}"></a></td>
         <td>
@@ -54,6 +54,13 @@
         </td>
     </tr>
 </table>
+
+</br>
+</br>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out" />
+</form>
 
 </body>
 </html>

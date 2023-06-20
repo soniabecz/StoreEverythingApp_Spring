@@ -2,46 +2,61 @@ package com.example.storeeverythingapp_spring.repositories;
 
 import com.example.storeeverythingapp_spring.data.Category;
 import com.example.storeeverythingapp_spring.data.Information;
-import com.example.storeeverythingapp_spring.validators.category.CategoryValidation;
+import com.example.storeeverythingapp_spring.data.db.CategoryEntity;
+import com.example.storeeverythingapp_spring.data.db.InformationEntity;
+import com.example.storeeverythingapp_spring.repositories.db.CategoryEntityRepository;
+import com.example.storeeverythingapp_spring.repositories.db.InformationEntityRepository;
 import lombok.Getter;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Repository
 @Getter
+@Scope("session")
 public class InformationRepository {
-    List<Information> infos = new ArrayList<>();
-    List<Information> allInfos = new ArrayList<>();
+
+    @Autowired
+    InformationEntityRepository informationEntityRepository;
+
+    @Autowired
+    CategoryEntityRepository categoryEntityRepository;
+
+    List<InformationEntity> infos;
+    List<InformationEntity> allInfos = new ArrayList<>();
     List<Category> categories = new ArrayList<>();
     HashMap infosPopularity = new HashMap<>();
 
     int counter = 0;
 
     public InformationRepository() {
-
+        infos = informationEntityRepository.findAll();
     }
 
-    public Information getInfo(int id) {
+    public InformationEntity getInfo(int id) {
         return infos.get(id);
     }
 
-    public List<Information> getAllInfos() {
+    public List<InformationEntity> getAllInfos() {
         infos = allInfos;
         counter = 0;
         return infos;
     }
 
-    public List<Information> filterInfos(String choice) {
+    public List<InformationEntity> all() {
+        return informationEntityRepository.findAll();
+    }
+
+    public List<InformationEntity> filterInfos(String choice) {
         if(counter == 0) {
             allInfos = infos;
             counter++;
         }
 
-        List<Information> filteredInfos = new ArrayList<>();
+        List<InformationEntity> filteredInfos = new ArrayList<>();
 
         if (Objects.equals(choice, "category")) {
             Iterator i = infosPopularity.keySet().iterator();
@@ -50,8 +65,8 @@ public class InformationRepository {
                 String category = i.next().toString();
                 int count = Integer.parseInt(infosPopularity.get(category).toString());
 
-                for (Information info:infos) {
-                    if(info.getCategory().getName().equals(category) && count >= 2) {
+                for (InformationEntity info:infos) {
+                    if(info.getCategoryName().getName().equals(category) && count >= 2) {
                         filteredInfos.add(info);
                     }
                 }
@@ -59,14 +74,14 @@ public class InformationRepository {
         } else if(Objects.equals(choice, "date")) {
             Date yesterday = new Date(System.currentTimeMillis()-24*60*60*1000);
 
-            for (Information info:infos) {
+            for (InformationEntity info:infos) {
                 if(info.getDate().after(yesterday)) {
                     filteredInfos.add(info);
                 }
             }
-            Collections.sort(filteredInfos, new Comparator<Information>() {
+            Collections.sort(filteredInfos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final Information info1, final Information info2) {
+                public int compare(final InformationEntity info1, final InformationEntity info2) {
                     return info1.getDate().compareTo(info2.getDate());
                 }
             });
@@ -77,11 +92,11 @@ public class InformationRepository {
 
     }
 
-    public List<Information> sortByNameASC() {
+    public List<InformationEntity> sortByNameASC() {
         if (infos.size() > 0) {
-            Collections.sort(infos, new Comparator<Information>() {
+            Collections.sort(infos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final Information info1, final Information info2) {
+                public int compare(final InformationEntity info1, final InformationEntity info2) {
                     return info1.getTitle().compareTo(info2.getTitle());
                 }
             });
@@ -90,11 +105,11 @@ public class InformationRepository {
         return infos;
     }
 
-    public List<Information> sortByNameDSC() {
+    public List<InformationEntity> sortByNameDSC() {
         if (infos.size() > 0) {
-            Collections.sort(infos, new Comparator<Information>() {
+            Collections.sort(infos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final Information info1, final Information info2) {
+                public int compare(final InformationEntity info1, final InformationEntity info2) {
                     return info2.getTitle().compareTo(info1.getTitle());
                 }
             });
@@ -103,11 +118,11 @@ public class InformationRepository {
         return infos;
     }
 
-    public List<Information> sortByDateASC() {
+    public List<InformationEntity> sortByDateASC() {
         if (infos.size() > 0) {
-            Collections.sort(infos, new Comparator<Information>() {
+            Collections.sort(infos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final Information info1, final Information info2) {
+                public int compare(final InformationEntity info1, final InformationEntity info2) {
                     return info1.getDate().compareTo(info2.getDate());
                 }
             });
@@ -116,11 +131,11 @@ public class InformationRepository {
         return infos;
     }
 
-    public List<Information> sortByDateDSC() {
+    public List<InformationEntity> sortByDateDSC() {
         if (infos.size() > 0) {
-            Collections.sort(infos, new Comparator<Information>() {
+            Collections.sort(infos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final Information info1, final Information info2) {
+                public int compare(final InformationEntity info1, final InformationEntity info2) {
                     return info2.getDate().compareTo(info1.getDate());
                 }
             });
@@ -129,12 +144,12 @@ public class InformationRepository {
         return infos;
     }
 
-    public List<Information> sortByCategoryASC() {
+    public List<InformationEntity> sortByCategoryASC() {
         if (infos.size() > 0) {
-            Collections.sort(infos, new Comparator<Information>() {
+            Collections.sort(infos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final Information info1, final Information info2) {
-                    return info1.getCategory().getName().compareTo(info2.getCategory().getName());
+                public int compare(final InformationEntity info1, final InformationEntity info2) {
+                    return info1.getCategoryName().getName().compareTo(info2.getCategoryName().getName());
                 }
             });
         }
@@ -142,12 +157,12 @@ public class InformationRepository {
         return infos;
     }
 
-    public List<Information> sortByCategoryDSC() {
+    public List<InformationEntity> sortByCategoryDSC() {
         if (infos.size() > 0) {
-            Collections.sort(infos, new Comparator<Information>() {
+            Collections.sort(infos, new Comparator<InformationEntity>() {
                 @Override
-                public int compare(final Information info1, final Information info2) {
-                    return info2.getCategory().getName().compareTo(info1.getCategory().getName());
+                public int compare(final InformationEntity info1, final InformationEntity info2) {
+                    return info2.getCategoryName().getName().compareTo(info1.getCategoryName().getName());
                 }
             });
         }
@@ -155,11 +170,12 @@ public class InformationRepository {
         return infos;
     }
 
-    public void addInfo(Information newInfo) {
+    public void addInfo(InformationEntity newInfo) {
         infos.add(newInfo);
 
-        int count = Integer.parseInt(infosPopularity.get(newInfo.getCategory().getName()).toString());
-        infosPopularity.put(newInfo.getCategory().getName(), Integer.valueOf(++count));
+
+        int count = Integer.parseInt(infosPopularity.get(newInfo.getCategoryName().getName()).toString());
+        infosPopularity.put(newInfo.getCategoryName().getName(), Integer.valueOf(++count));
         infosPopularity = sortByValue(infosPopularity);
 
     }
@@ -167,11 +183,13 @@ public class InformationRepository {
         infos.remove(id);
     }
     public void editInfo(int id, Information newInfo) {
+        String catName = newInfo.getCategory().getName();
+        Optional<CategoryEntity> categoryEntity = categoryEntityRepository.findByNameIgnoreCase(catName);
         infos.get(id).setTitle(newInfo.getTitle());
         infos.get(id).setContent(newInfo.getContent());
         infos.get(id).setLink(newInfo.getLink());
-        infos.get(id).setDate(newInfo.getDate());
-        infos.get(id).setCategory(newInfo.getCategory());
+        infos.get(id).setDate(new java.sql.Date(newInfo.getDate().getTime()));
+        infos.get(id).setCategoryName(categoryEntity.get());
     }
 
     public void addCategory(Category newCat) {
