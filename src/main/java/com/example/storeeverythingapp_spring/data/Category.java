@@ -1,6 +1,7 @@
 package com.example.storeeverythingapp_spring.data;
 
 import com.example.storeeverythingapp_spring.validators.category.CategoryValidation;
+import com.example.storeeverythingapp_spring.validators.dictionary.DictionaryValidation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -16,5 +17,6 @@ public class Category {
     @Pattern(regexp = "[a-z]+", message = "Name should only consist of lowercase letters", groups = {CategoryValidation.class})
     @NotBlank(message = "Category has to be chosen")
     @CategoryValidation(groups = {CategoryValidation.class})
+    @DictionaryValidation(groups = {CategoryValidation.class})
     private String name;
 }

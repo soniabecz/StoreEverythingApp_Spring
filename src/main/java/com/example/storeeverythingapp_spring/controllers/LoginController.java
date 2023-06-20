@@ -40,10 +40,9 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String manageAddPost(@ModelAttribute("newUser") UserEntity user, BindingResult result, Model model) {
+    public String manageAddPost(@Valid @ModelAttribute("newUser") UserEntity user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            result.getAllErrors().forEach(System.out::println);
             return "register";
         }
 
@@ -52,8 +51,8 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @GetMapping("/changeRole")
-    public String filterItems(@RequestParam("username") String username, @RequestParam("role") String role, Model model) {
+    @GetMapping("/changeRole/{username}")
+    public String filterItems(@PathVariable("username") String username, @RequestParam("role") String role, Model model) {
         appService.changeRole(username,role);
         model.addAttribute("users", appService.getAllUsers());
         model.addAttribute("roles", Arrays.asList(Role.values()));

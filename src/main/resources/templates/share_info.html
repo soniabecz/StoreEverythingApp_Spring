@@ -7,19 +7,30 @@
 <body>
 <div class="container">
   <span th:insert="~{menu :: menu}"></span>
-  <h1>Add new info</h1>
+  <h1>Share Info</h1>
   <form action="#" th:action="@{'/infos/manage/share/' + ${id}}" th:object="${newInfo}" method="post">
-    <p>Username of a user to share this information to:<input type="text" th:id="|username|" th:name="username"/></p>
-    <p><input hidden="hidden" type="number" th:value="${newInfo.databaseId}" th:field="*{databaseId}"/></p>
-    <p><input hidden="hidden" type="text" th:value="${newInfo.title}" th:field="*{title}"/></p>
-    <p><input hidden="hidden" type="text" th:value="${newInfo.content}" th:field="*{content}"/></p>
-    <p><input hidden="hidden" type="text" th:value="${newInfo.link}" th:field="*{link}"/></p>
-    <p><input hidden="hidden" type="date" th:value="${newInfo.date}" th:field="*{date}"/></p>
+    <p>
+      <label th:for="|username|">Username of a user to share this information to: </label>
+      <input type="text" th:id="|username|" th:name="username"/></p>
+    <p>
+      <label th:for="|number|" hidden="hidden">: </label>
+      <input th:id="|number|" hidden="hidden" type="number" th:value="${newInfo.databaseId}" th:field="*{databaseId}"/></p>
+    <p>
+      <label th:for="|title|" hidden="hidden">: </label>
+      <input th:id="|title|" hidden="hidden" type="text" th:value="${newInfo.title}" th:field="*{title}"/></p>
+    <p>
+      <label th:for="|content|" hidden="hidden">: </label>
+      <input th:id="|content|" hidden="hidden" type="text" th:value="${newInfo.content}" th:field="*{content}"/></p>
+    <p>
+      <label th:for="|link|" hidden="hidden">: </label>
+      <input th:id="|link|" hidden="hidden" type="text" th:value="${newInfo.link}" th:field="*{link}"/></p>
+    <p>
+      <label th:for="|date|" hidden="hidden">: </label>
+      <input th:id="|date|" hidden="hidden" type="date" th:value="${newInfo.date}" th:field="*{date}"/></p>
     <span>
-      <select hidden="hidden" th:field="*{category}"></select><span th:if="${#fields.hasErrors('*')}" th:errors="*{category.name}">Name Error</span>
+      <label th:for="|category|" hidden="hidden">: </label>
+      <select th:id="|category|" hidden="hidden" th:field="*{category}"></select>
     </span>
-    </br>
-    </br>
     <input type="submit" value="Share"/>
   </form>
 </div>

@@ -10,17 +10,29 @@
     <span th:insert="~{menu :: menu}"></span>
     <h1>Add new info</h1>
     <form action="#" th:action="@{'/infos/manage/edit/' + ${id}}" th:object="${newInfo}" method="post">
-        <p> <input hidden="hidden" type="number" th:value="${newInfo.databaseId}" th:field="*{databaseId}"/></p>
-        <p>Title: <input type="text" th:value="${newInfo.title}" th:field="*{title}"/><span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</span></p>
-        <p>Content: <input type="text" th:value="${newInfo.content}" th:field="*{content}"/><span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name Error</span></p>
-        <p>Link: <input type="text" th:value="${newInfo.link}" th:field="*{link}"/></p>
-        <p>Date: <input type="date" th:value="${newInfo.date}" th:field="*{date}"/><span th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Name Error</span></p>
+        <p>
+            <label th:for="|id|" hidden="hidden">: </label>
+            <input th:id="|id|" hidden="hidden" type="number" th:value="${newInfo.databaseId}" th:field="*{databaseId}"/>
+        </p>
+        <p>
+            <label th:for="|title|">Title: </label>
+            <input th:id="|title|" type="text" th:value="${newInfo.title}" th:field="*{title}"/><span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name Error</span></p>
+        <p>
+            <label th:for="|content|">Content: </label>
+            <input th:id="|content|" type="text" th:value="${newInfo.content}" th:field="*{content}"/><span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name Error</span></p>
+        <p>
+            <label th:for="|link|">Link: </label>
+            <input th:id="|link|" type="text" th:value="${newInfo.link}" th:field="*{link}"/></p>
+        <p>
+            <label th:for="|date|">Date: </label>
+            <input th:id="|date|" type="date" th:value="${newInfo.date}" th:field="*{date}"/><span th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Name Error</span></p>
         <span>
-      <select th:field="*{category}">
-        <option value="" th:text="${newInfo.category.name}">Select category</option>
-        <option th:each="option : ${categories}" th:value="${option.name}" th:text="${option.name}"></option>
-      </select><span th:if="${#fields.hasErrors('*')}" th:errors="*{category.name}">Name Error</span>
-    </span>
+            <label th:for="|category|">Category: </label>
+            <select th:field="*{category}">
+                <option value="" th:text="${newInfo.category.name}">Select category</option>
+                <option th:each="option : ${categories}" th:value="${option.name}" th:text="${option.name}"></option>
+            </select><span th:if="${#fields.hasErrors('*')}" th:errors="*{category.name}">Name Error</span>
+        </span>
         </br>
         </br>
         <input type="submit" value="Edit"/>

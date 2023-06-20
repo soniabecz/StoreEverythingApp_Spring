@@ -60,11 +60,12 @@ public class AppService {
         infos = informationEntityRepository.findAllByUsername(currentUserName);
 
         dbSize = infos.size();
-
-        for (InformationEntity info : infos) {
-            int count = Integer.parseInt(infosPopularity.get(info.getCategoryName().getName()).toString());
-            infosPopularity.put(info.getCategoryName().getName(), Integer.valueOf(++count));
-            infosPopularity = sortByValue(infosPopularity);
+        if(categories.size() != 0) {
+            for (InformationEntity info : infos) {
+                int count = Integer.parseInt(infosPopularity.get(info.getCategoryName().getName()).toString());
+                infosPopularity.put(info.getCategoryName().getName(), Integer.valueOf(++count));
+                infosPopularity = sortByValue(infosPopularity);
+            }
         }
 
         if (newInfos.size() != 0) {
@@ -100,7 +101,7 @@ public class AppService {
     }
 
     public List<InformationEntity> getSharedInfos() {
-        getInfos();
+
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
@@ -110,28 +111,12 @@ public class AppService {
     }
 
 
-    public List<InformationEntity> filterInfos(String choice) {
+    public List<InformationEntity> filterInfosByDate(Date date) {
 
         List<InformationEntity> filteredInfos = new ArrayList<>();
 
-        if (Objects.equals(choice, "category")) {
-            Iterator i = infosPopularity.keySet().iterator();
-
-            while (i.hasNext()) {
-                String category = i.next().toString();
-                int count = Integer.parseInt(infosPopularity.get(category).toString());
-
-                for (InformationEntity info:infos) {
-                    if(info.getCategoryName().getName().equals(category) && count >= 2) {
-                        filteredInfos.add(info);
-                    }
-                }
-            }
-        } else if(Objects.equals(choice, "date")) {
-            Date yesterday = new Date(System.currentTimeMillis()-24*60*60*1000);
-
             for (InformationEntity info:infos) {
-                if(info.getDate().after(yesterday)) {
+                if(info.getDate().before(date)) {
                     filteredInfos.add(info);
                 }
             }
@@ -141,7 +126,28 @@ public class AppService {
                     return info1.getDate().compareTo(info2.getDate());
                 }
             });
-        }
+
+        infos = filteredInfos;
+        return filteredInfos;
+
+    }
+
+    public List<InformationEntity> filterInfosByCategory() {
+
+        List<InformationEntity> filteredInfos = new ArrayList<>();
+
+            Iterator i = infosPopularity.keySet().iterator();
+
+            while (i.hasNext()) {
+                String category = i.next().toString();
+                int count = Integer.parseInt(infosPopularity.get(category).toString());
+
+                for (com.example.storeeverythingapp_spring.data.db.InformationEntity info:infos) {
+                    if(info.getCategoryName().getName().equals(category) && count >= 2) {
+                        filteredInfos.add(info);
+                    }
+                }
+            }
 
         infos = filteredInfos;
         return filteredInfos;

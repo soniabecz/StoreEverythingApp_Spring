@@ -5,13 +5,29 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Register</h2>
+<h1>Register</h1>
+
 <form action="#" th:action="@{/register}" th:object="${newUser}" method="post">
-    <p>Name: <input type="text" th:field="*{name}"/><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span></p>
-    <p>Surname: <input type="text" th:field="*{surname}"/><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</span></p>
-    <p>Username: <input type="text" th:field="*{username}"/><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span></p>
-    <p>Password: <input type="password" th:field="*{password}"/><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</span></p>
-    <p>Age: <input type="number" th:field="*{age}"/></p>
+    <p>
+        <label th:for="|name|">Name: </label>
+        <input th:id="|name|" type="text" th:field="*{name}"/><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+    </p>
+    <p>
+        <label th:for="|surname|">Surname: </label>
+        <input th:id="|surname|" type="text" th:field="*{surname}"/><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</span>
+    </p>
+    <p>
+        <label th:for="|username|">Username: </label>
+        <input th:id="|username|" type="text" th:field="*{username}"/><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span>
+    </p>
+    <p>
+        <label th:for="|password|">Password: </label>
+        <input th:id="|password|" type="password" th:field="*{password}"/><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</span>
+    </p>
+    <p>
+        <label th:for="|age|">Age: </label>
+        <input th:id="|age|" type="number" th:field="*{age}" th:value=0/><span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Name Error</span>
+    </p>
     </br>
     </br>
     <input type="submit" value="SignUp"/>

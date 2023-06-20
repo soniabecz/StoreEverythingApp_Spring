@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Main Page</title>
 </head>
 <body>
+<span sec:authorize="isAuthenticated()">
+<h1>Welcome to StoreEverythingApp <span sec:authentication="name"></span></h1>
+    <h2>What do you want to do?</h2>
+    <span th:insert="~{menu :: menu}"></span>
+</span>
 
+<span sec:authorize="!isAuthenticated()">
 <h1>Welcome to StoreEverythingApp</h1>
-<a th:href="@{'/infos/'}">Go To Infos</a>
+    <form th:action="@{/login}" method="get">
+    <input type="submit" value="Log In" />
+</form>
+    <form th:action="@{/register}" method="get">
+    <input type="submit" value="Register" />
+</form>
+</span>
 
 </body>
 </html>

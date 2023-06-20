@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,11 +8,11 @@
 <body>
 
 <div th:fragment="menu">
-    <a th:href="@{'/infos/manage/add'}">Add Item</a>
-    <a th:href="@{'/infos/manage/add/category'}">Add Category</a>
-    <a th:href="@{'/infos/all'}">Show All</a>
-    <a th:href="@{'/infos/shared'}">Show Shared</a>
-    <a th:href="@{'/allUsers'}">Show Users</a>
+    <a sec:authorize="hasAuthority('FULL_USER')" th:href="@{'/infos/manage/add'}">Add Item</a>
+    <a sec:authorize="hasAuthority('FULL_USER')" th:href="@{'/infos/manage/add/category'}">Add Category</a>
+    <a sec:authorize="hasAuthority('FULL_USER')" th:href="@{'/infos/all'}">Show All</a>
+    <a sec:authorize="hasAnyAuthority('FULL_USER', 'LIMITED_USER')" th:href="@{'/infos/shared'}">Show Shared</a>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/allUsers'}">Show Users</a>
 
 </div>
 

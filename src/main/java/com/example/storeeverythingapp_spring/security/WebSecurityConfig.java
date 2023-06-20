@@ -30,10 +30,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/error").permitAll()
-                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/", "/error", "/login", "/register").permitAll()
                         .requestMatchers("/infos/shared").hasAnyAuthority("FULL_USER", "LIMITED_USER")
-                        .requestMatchers("/infos/manage/add").hasAuthority("ADMIN")
+                        .requestMatchers("/infos/manage/**","/infos/sort/**", "/infos/filter", "/infos/all", "/infos/").hasAuthority("FULL_USER")
+                        .requestMatchers("/users").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

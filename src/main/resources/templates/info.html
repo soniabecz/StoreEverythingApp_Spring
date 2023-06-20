@@ -8,10 +8,11 @@
 
 <span th:insert="~{menu :: menu}"></span>
 <h1 th:text="|Info|">message</h1>
-<h4 th:text="${info.title}"/>
-<h4 th:text="${info.content}"/>
-<h4 th:text="${info.category.name}"/>
-<h4 th:href="${info.link}"/>
+<h2 th:text="${info.title}"/>
+<h2 th:text="${info.content}"/>
+<h2 th:text="${info.category.name}"/>
+<h2 th:if="${info.link == ''}">no link</h2>
+<h2 th:unless="${info.link == ''}" th:href="${info.link}" th:text="${info.link}"></h2>
 
 </body>
 </html>

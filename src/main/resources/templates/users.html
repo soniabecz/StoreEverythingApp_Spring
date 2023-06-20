@@ -28,11 +28,11 @@
             <a th:href="@{'/editUser/' + ${user.username}}">Edit</a>
         </td>
         <td>
-            <form th:action="@{/changeRole}" method="get">
-                <input hidden="hidden" th:name="username" th:value="${user.username}"/>
+            <form th:action="@{'/changeRole/' + ${user.username}}" method="get">
                 <label>
                     <select th:id="|roles|" th:name="role">
-                        <option th:each="role:${roles}" th:text="${role}" th:value="${role}"></option>
+                        <label th:for="|role|" hidden="hidden">Role: </label>
+                        <option th:id="|role|" th:each="role:${roles}" th:text="${role}" th:value="${role}"></option>
                     </select>
                 </label>
                 <input type="submit" value="Change"/>

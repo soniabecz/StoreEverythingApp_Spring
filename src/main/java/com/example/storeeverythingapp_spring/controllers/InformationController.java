@@ -17,6 +17,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Locale;
+
 
 @Controller
 @RequestMapping("/infos")
@@ -26,8 +32,6 @@ public class InformationController {
     @Autowired
     AppService service;
 
-    @Autowired
-    RestClientService clientService;
 
     @GetMapping("/")
     public String getInfos(@CookieValue(value = "sortType", defaultValue = "none") String sortType, Model model) {
@@ -88,9 +92,19 @@ public class InformationController {
         return "info";
     }
 
-    @GetMapping("/filter")
-    public String filterItems(@RequestParam("choice") String choice, Model model) {
-        model.addAttribute("infos", service.filterInfos(choice));
+    @GetMapping("/filter/date")
+    public String filterItemsByDate(@RequestParam("date") String date, Model model) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = formatter.parse(date);
+
+        model.addAttribute("infos", service.filterInfosByDate(date1));
+        model.addAttribute("categories", service.getCategories());
+        return "infos";
+    }
+
+    @GetMapping("/filter/category")
+    public String filterItemsByCategory(Model model) {
+        model.addAttribute("infos", service.filterInfosByCategory());
         model.addAttribute("categories", service.getCategories());
         return "infos";
     }
@@ -201,10 +215,7 @@ public class InformationController {
 
     public String manageCatPost(@Validated(CategoryValidation.class) @ModelAttribute("newCategory") Category newCategory, BindingResult result, Model model, HttpServletRequest request) {
         System.out.println(result.hasErrors());
-        if (!clientService.checkIfWordIsInDictionary(newCategory.getName())) {
-            System.out.println("nie ma w słowniku");
-            return "add_category";
-        }
+
         if (result.hasErrors()) {
             result.getAllErrors().forEach(System.out::println);
             return "add_category";
