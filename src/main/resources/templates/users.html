@@ -2,9 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Users</title>
 </head>
 <body>
+<span th:insert="~{menu :: menu}"></span>
+</br>
+<h1 th:text="|Users:|">message</h1>
 
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Username</th>
+        <th>Age</th>
+        <th>Actions</th>
+        <th>Change Role</th>
+    </tr>
+    <tr th:each="user,state:${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.age}"></td>
+        <td>
+            <a th:href="@{'/deleteUser/' + ${user.username}}">Delete</a>
+            <a th:href="@{'/editUser/' + ${user.username}}">Edit</a>
+        </td>
+        <td>
+            <form th:action="@{/changeRole}" method="get">
+                <input hidden="hidden" th:name="username" th:value="${user.username}"/>
+                <label>
+                    <select th:id="|roles|" th:name="role">
+                        <option th:each="role:${roles}" th:text="${role}" th:value="${role}"></option>
+                    </select>
+                </label>
+                <input type="submit" value="Change"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</br>
+</br>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out" />
+</form>
 </body>
 </html>

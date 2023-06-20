@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <span th:insert="~{menu :: menu}"></span>
+    <h1>Add new info</h1>
+    <form action="#" th:action="@{'/editUser/' + ${username}}" th:object="${newUser}" method="post">
+        <p>Name: <input type="text" th:value="${newUser.name}" th:field="*{name}"/><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span></p>
+        <p>Surname: <input type="text" th:value="${newUser.surname}" th:field="*{surname}"/><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</span></p>
+        <p>Username: <input type="text" th:value="${newUser.username}" th:field="*{username}"/></p>
+        <p>Age: <input type="number" th:value="${newUser.age}" th:field="*{age}"/><span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Name Error</span></p>
+
+        </br>
+        </br>
+        <input type="submit" value="Edit"/>
+    </form>
+</div>
+
+</body>
+</html>

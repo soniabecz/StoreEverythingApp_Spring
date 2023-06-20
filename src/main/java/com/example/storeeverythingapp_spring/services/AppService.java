@@ -404,4 +404,41 @@ public class AppService {
         authority.setAuthority("FULL_USER");
         authoritiesEntityRepository.save(authority);
     }
+
+    public List<UserEntity> getAllUsers() {
+        return userEntityRepository.findAll();
+    }
+
+    public void changeRole (String username, String role) {
+
+        AuthoritiesEntity authority = new AuthoritiesEntity();
+
+        authority.setUsername(username);
+        authority.setAuthority(role);
+
+        authoritiesEntityRepository.save(authority);
+    }
+
+    public void deleteUser(String username) {
+        List<AuthoritiesEntity> authorities = authoritiesEntityRepository.findByUsername(username);
+
+        authoritiesEntityRepository.deleteAll(authorities);
+
+        userEntityRepository.delete(userEntityRepository.findByUsername(username));
+    }
+
+    public UserEntity getUser(String username) {
+        return userEntityRepository.findByUsername(username);
+    }
+
+    public void editUser(UserEntity user, String username) {
+        UserEntity user1 = userEntityRepository.findByUsername(username);
+
+        user1.setName(user.getName());
+        user1.setAge(user.getAge());
+        user1.setSurname(user.getSurname());
+        user1.setUsername(user.getUsername());
+
+        userEntityRepository.save(user1);
+    }
 }

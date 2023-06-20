@@ -15,7 +15,6 @@ public class RestClientService {
 
     public boolean checkIfWordIsInDictionary(String word) {
         ResponseEntity<Boolean> response = connector.getForEntity(url+"/checkWord?word="+word, Boolean.class);
-        boolean check = response.getBody();
-        return check;
+        return response.getBody();
     }
 }

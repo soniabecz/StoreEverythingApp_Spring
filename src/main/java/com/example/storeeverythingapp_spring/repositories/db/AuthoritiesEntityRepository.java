@@ -9,4 +9,5 @@ import java.util.List;
 public interface AuthoritiesEntityRepository extends JpaRepository<AuthoritiesEntity, Integer> {
 
     List<AuthoritiesEntity> findByUsername(String username);
+
 }

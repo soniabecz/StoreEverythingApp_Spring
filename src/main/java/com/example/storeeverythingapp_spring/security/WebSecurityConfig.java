@@ -57,7 +57,4 @@ public class WebSecurityConfig {
         List<AuthenticationProvider> providers= List.of(authProvider);
         return new ProviderManager(providers);
     }
-
-
-
 }
