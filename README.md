@@ -10,18 +10,18 @@ innym oraz wygodnego przeglądania i przeszukiwania w
 dogodnym czasie.
 ## Elementy techniczne
 - [x] Kontrolery
-- [ ] Baza danych (co najmniej 2 tabele z relacją)
+- [x] Baza danych (co najmniej 2 tabele z relacją)
 - [x] Widoki: formularze z walidacją (3 różne elementy), 5 różnych znaczników Thymeleafa
 - [x] Sesja
 - [x] Ciasteczka
-- [ ] Usługa REST (do uwierzytelniania użytkowników)
-- [ ] Klient REST
-- [ ] Spring Security (z bazą danych)
+- [x] Usługa REST (do wyszukiwania kategorii w słowniku)
+- [x] Klient REST
+- [x] Spring Security (z bazą danych)
 
 ### Admin
 zarządza użytkownikami
-- [ ] wyświetlanie listy użytkowników
-- [ ] zarządzanie rolami
+- [x] wyświetlanie listy użytkowników
+- [x] zarządzanie rolami
 ### Limited user
 Jest zarejestrowany, może przegladać udostępnione linki, ale nie może tworzyć informacji.
 ### Full user
@@ -30,16 +30,16 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [x] walidacja formularza
 - [x] edycja na danych bieżących
 - [x] dodanie nowej kategorii
-- [ ] wyświetlenie udostępnionych przez innych informacji
-- [ ] udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
+- [x] wyświetlenie udostępnionych przez innych informacji
+- [x] udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
 - [x] wyświetlanie “swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
 - [x] zapamiętanie kierunków i kryteriów sortowania
 - [x] filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
-- [ ] logowanie
-- [ ] zapis do bazy danych dopiero przy wylogowaniu/wygaśnięciu sesji
+- [x] logowanie
+- [x] zapis do bazy danych dopiero przy wylogowaniu/wygaśnięciu sesji
 ### Użytkownik niezalogowany
 Ma dostęp tylko do strony początkowej i strony rejestracji
-- [ ] rejestracja
-- [ ] walidacja formularza
-- [ ] strona powitalna
+- [x] rejestracja
+- [x] walidacja formularza
+- [x] strona powitalna
 - [ ] wyświetlenie informacji z udostępnionego linku
